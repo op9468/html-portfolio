@@ -5,27 +5,27 @@ let userClickedPattern = [];
 const buttons = document.querySelectorAll(".btn");
 let lvl = 0;
 
-
-
 const keyDown = (function () {
   var executed = false;
 
   return function () {
-
       if (!executed) {
           executed = true;
           nextSequence();
       }
-
   };
 })();
 
 document.addEventListener("keydown", keyDown);
+document.addEventListener("touchstart", keyDown);
+
 
 const nextSequence = () => {
 
   document.addEventListener("keydown", keyDown);
+  document.addEventListener("touchstart", keyDown);
   document.removeEventListener("keydown", startOver);
+  document.removeEventListener("touchstart", startOver);
 
   const randomNum = Math.floor(Math.random() * 4);
   randomChosenColour = buttonColours[randomNum];
@@ -76,7 +76,9 @@ const gameOver = () => {
         audio.play();
 
   document.removeEventListener("keydown", keyDown);
+  document.removeEventListener("touchstart", keyDown);
   document.addEventListener("keydown", startOver);
+  document.addEventListener("touchstart", startOver);
   executed = false;
 }
 
